@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class Game : MonoBehaviour
     private GameObject[,] positions = new GameObject[8, 8];
     private GameObject[] playerDark = new GameObject[12];
     private GameObject[] playerLight = new GameObject[12];
+
+    private string currentPlayer = "dark";
+
+    private bool gameOver = false;
 
     void Start()
     {
@@ -21,13 +26,13 @@ public class Game : MonoBehaviour
             {
                 if (i % 2 == 0)
                 {
-                    playerLight[idx++] = Create("dark_pawn", j, i);
-                    playerLight[idx] = Create("light_pawn", j + 1, i + 5);
+                    playerDark[idx] = Create("dark_pawn", j, i);
+                    playerLight[idx++] = Create("light_pawn", j + 1, i + 5);
                 }
                 else
                 {
-                    playerLight[idx++] = Create("dark_pawn", j + 1, i);
-                    playerLight[idx] = Create("light_pawn", j, i + 5);
+                    playerDark[idx] = Create("dark_pawn", j + 1, i);
+                    playerLight[idx++] = Create("light_pawn", j, i + 5);
                 }
             }
         }
@@ -75,5 +80,3 @@ public class Game : MonoBehaviour
         return true;
     }
 }
-
-// https://forms.gle/ffftxdbNiNUUaA7v8
