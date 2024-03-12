@@ -79,9 +79,11 @@ public class Piece : MonoBehaviour
 
     private void OnMouseUp()
     {
-        Debug.Log("Clicked");
-        DestroyMovePlates();
-        InitiateMovePlates();
+        if (!controller.GetComponent<Game>().IsGameOver() && controller.GetComponent<Game>().GetCurrentPlayer() == player)
+        {
+            DestroyMovePlates();
+            InitiateMovePlates();
+        }
     }
 
     public void DestroyMovePlates()
@@ -131,7 +133,8 @@ public class Piece : MonoBehaviour
 
         if (sc.PositionOnBoard(x, y) && sc.GetPosition(x, y).GetComponent<Piece>().player != player)
         {
-            MovePlateAttackSpawn(x, y);
+            // TODO : KING MOVE
+            // MovePlateAttackSpawn(x, y, x, y);
         }
     }
 
@@ -150,9 +153,12 @@ public class Piece : MonoBehaviour
             {
                 MovePlateSpawn(x, y);
             }
-            else if (pc.GetComponent<Piece>().player != player && sc.GetPosition(x + xIncrement, y + yIncrement) == null)
+            else if (pc.GetComponent<Piece>().player != player && sc.PositionOnBoard(x + xIncrement, y + yIncrement))
             {
-                MovePlateAttackSpawn(x + xIncrement, y + yIncrement);
+                if (sc.GetPosition(x + xIncrement, y + yIncrement) == null)
+                {
+                    MovePlateAttackSpawn(x + xIncrement, y + yIncrement, x, y);
+                }
             }
         }
     }
@@ -175,7 +181,7 @@ public class Piece : MonoBehaviour
         mpScript.SetCoords(matrixX, matrixY);
     }
 
-    public void MovePlateAttackSpawn(int matrixX, int matrixY)
+    public void MovePlateAttackSpawn(int matrixX, int matrixY, int attackedX, int attackedY)
     {
         float x = matrixX;
         float y = matrixY;
@@ -190,7 +196,9 @@ public class Piece : MonoBehaviour
 
         MovePlate mpScript = mp.GetComponent<MovePlate>();
         mpScript.attack = true;
+
         mpScript.SetReference(gameObject);
         mpScript.SetCoords(matrixX, matrixY);
+        mpScript.SetAttackedCoords(attackedX, attackedY);
     }
 }

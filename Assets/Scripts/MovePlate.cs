@@ -11,6 +11,9 @@ public class MovePlate : MonoBehaviour
     int matrixX;
     int matrixY;
 
+    int attackedX;
+    int attackedY;
+
     public bool attack = false;
 
     public void Start()
@@ -27,8 +30,8 @@ public class MovePlate : MonoBehaviour
 
         if (attack)
         {
-            GameObject pc = controller.GetComponent<Game>().GetPosition(matrixX, matrixY);
-
+            GameObject pc = controller.GetComponent<Game>().GetPosition(attackedX, attackedY);
+            controller.GetComponent<Game>().SetPositionEmpty(attackedX, attackedY);
             Destroy(pc);
         }
 
@@ -40,6 +43,8 @@ public class MovePlate : MonoBehaviour
 
         controller.GetComponent<Game>().SetPosition(reference);
 
+        controller.GetComponent<Game>().NextTurn();
+
         reference.GetComponent<Piece>().DestroyMovePlates();
     }
 
@@ -47,6 +52,12 @@ public class MovePlate : MonoBehaviour
     {
         matrixX = x;
         matrixY = y;
+    }
+
+    public void SetAttackedCoords(int x, int y)
+    {
+        attackedX = x;
+        attackedY = y;
     }
 
     public void SetReference(GameObject obj)

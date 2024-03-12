@@ -79,4 +79,36 @@ public class Game : MonoBehaviour
         }
         return true;
     }
+
+    public string GetCurrentPlayer()
+    {
+        return currentPlayer;
+    }
+
+    public bool IsGameOver()
+    {
+        return gameOver;
+    }
+
+    public void NextTurn()
+    {
+        if (currentPlayer == "dark")
+        {
+            currentPlayer = "light";
+        }
+        else
+        {
+            currentPlayer = "dark";
+        }
+    }
+
+    public void update()
+    {
+        if (gameOver == true && Input.GetMouseButtonDown(0))
+        {
+            gameOver = false;
+
+            SceneManager.LoadScene("GameScene");
+        }
+    }
 }
