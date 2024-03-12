@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -54,4 +55,25 @@ public class Game : MonoBehaviour
         Piece pc = obj.GetComponent<Piece>();
         positions[pc.GetXBoard(), pc.GetYBoard()] = obj;
     }
+
+    public void SetPositionEmpty(int x, int y)
+    {
+        positions[x, y] = null;
+    }
+
+    public GameObject GetPosition(int x, int y)
+    {
+        return positions[x, y];
+    }
+
+    public bool PositionOnBoard(int x, int y)
+    {
+        if (x < 0 || x > 7 || y < 0 || y > 7)
+        {
+            return false;
+        }
+        return true;
+    }
 }
+
+// https://forms.gle/ffftxdbNiNUUaA7v8

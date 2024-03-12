@@ -61,4 +61,9 @@ public class Piece : MonoBehaviour
     {
         yBoard = y;
     }
+
+    private void OnMOuseUp()
+    {
+
+    }
 }
