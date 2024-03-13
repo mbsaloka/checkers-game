@@ -5,6 +5,7 @@ using UnityEngine;
 public class MovePlate : MonoBehaviour
 {
     public GameObject controller;
+    public GameObject sceneController;
 
     GameObject reference = null;
 
@@ -26,26 +27,31 @@ public class MovePlate : MonoBehaviour
 
     public void OnMouseUp()
     {
-        controller = GameObject.FindGameObjectWithTag("GameController");
-
-        if (attack)
+        sceneController = GameObject.FindGameObjectWithTag("SceneController");
+        if (!sceneController.GetComponent<SceneController>().isPaused)
         {
-            GameObject pc = controller.GetComponent<Game>().GetPosition(attackedX, attackedY);
-            controller.GetComponent<Game>().SetPositionEmpty(attackedX, attackedY);
-            Destroy(pc);
+
+            controller = GameObject.FindGameObjectWithTag("GameController");
+
+            if (attack)
+            {
+                GameObject pc = controller.GetComponent<Game>().GetPosition(attackedX, attackedY);
+                controller.GetComponent<Game>().SetPositionEmpty(attackedX, attackedY);
+                Destroy(pc);
+            }
+
+            controller.GetComponent<Game>().SetPositionEmpty(reference.GetComponent<Piece>().GetXBoard(), reference.GetComponent<Piece>().GetYBoard());
+
+            reference.GetComponent<Piece>().SetXBoard(matrixX);
+            reference.GetComponent<Piece>().SetYBoard(matrixY);
+            reference.GetComponent<Piece>().SetCoords();
+
+            controller.GetComponent<Game>().SetPosition(reference);
+
+            controller.GetComponent<Game>().NextTurn();
+
+            reference.GetComponent<Piece>().DestroyMovePlates();
         }
-
-        controller.GetComponent<Game>().SetPositionEmpty(reference.GetComponent<Piece>().GetXBoard(), reference.GetComponent<Piece>().GetYBoard());
-
-        reference.GetComponent<Piece>().SetXBoard(matrixX);
-        reference.GetComponent<Piece>().SetYBoard(matrixY);
-        reference.GetComponent<Piece>().SetCoords();
-
-        controller.GetComponent<Game>().SetPosition(reference);
-
-        controller.GetComponent<Game>().NextTurn();
-
-        reference.GetComponent<Piece>().DestroyMovePlates();
     }
 
     public void SetCoords(int x, int y)

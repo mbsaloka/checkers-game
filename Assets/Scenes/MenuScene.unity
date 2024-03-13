@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 235706069}
   m_Layer: 0
   m_Name: SceneController
-  m_TagString: Untagged
+  m_TagString: SceneController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d46a5d79be5c34da9a117259c9cd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseScreen: {fileID: 0}
+  isPaused: 0
 --- !u!4 &235706070
 Transform:
   m_ObjectHideFlags: 0
@@ -252,7 +254,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 235706069}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: startGame
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -419,7 +421,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.21700001, y: 0.7321482}
   m_AnchorMax: {x: 0.78145826, y: 0.9305926}
-  m_AnchoredPosition: {x: 0, y: -2.5000305}
+  m_AnchoredPosition: {x: 0, y: -23}
   m_SizeDelta: {x: 0.00012207, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &431619784
@@ -719,9 +721,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 235706069}
-        m_TargetAssemblyTypeName: UnityEngine.Component, UnityEngine
-        m_MethodName: SendMessage
-        m_Mode: 5
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

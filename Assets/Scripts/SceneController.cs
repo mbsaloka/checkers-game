@@ -6,33 +6,50 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    // public GameObject gameOverScreen;
-    // private bool isGameOver = false;
+    public GameObject PauseScreen;
+    public bool isPaused = false;
 
-    public void startGame()
+    public void StartGame()
     {
         SceneManager.LoadScene("GameScene");
     }
 
-    // public void restartGame()
-    // {
-    //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    // }
+    public void PauseGame()
+    {
+        PauseScreen.SetActive(true);
+        isPaused = true;
+    }
 
-    // public void menu()
-    // {
-    //     SceneManager.LoadScene("MenuScene");
-    // }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
-    public void quitGame()
+    public void Menu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
+
+    public void ResumeGame()
+    {
+        PauseScreen.SetActive(false);
+        isPaused = false;
+    }
+
+    public void QuitGame()
     {
         Debug.Log("Quitting Game...");
         Application.Quit();
     }
 
-    // public void gameOver()
+    // public void GameOver()
     // {
     //     gameOverScreen.SetActive(true);
     //     isGameOver = true;
     // }
+
+    public bool GetPauseState()
+    {
+        return isPaused;
+    }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     public GameObject controller;
+    public GameObject sceneController;
     public GameObject movePlate;
 
     private int xBoard = -1;
@@ -19,6 +20,7 @@ public class Piece : MonoBehaviour
     public void Activate()
     {
         controller = GameObject.FindGameObjectWithTag("GameController");
+        sceneController = GameObject.FindGameObjectWithTag("SceneController");
 
         SetCoords();
 
@@ -81,8 +83,11 @@ public class Piece : MonoBehaviour
     {
         if (!controller.GetComponent<Game>().IsGameOver() && controller.GetComponent<Game>().GetCurrentPlayer() == player)
         {
-            DestroyMovePlates();
-            InitiateMovePlates();
+            if (!sceneController.GetComponent<SceneController>().isPaused)
+            {
+                DestroyMovePlates();
+                InitiateMovePlates();
+            }
         }
     }
 
